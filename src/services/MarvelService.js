@@ -1,6 +1,6 @@
 const useMarvelService = () => {
   const _apiBase = "https://gateway.marvel.com:443/v1/public/";
-  const _apiKey = "apikey=882a0aebfa3a9199ca70d30776d20f3e";
+  const _apiKey = "apikey=a6e41fb437a7b4b79644f5b8839051c3";
   const getResource = async (url) => {
     let res = await fetch(url);
 

@@ -11,7 +11,7 @@ const RandomChar = () => {
   const [error, setError] = React.useState(false);
   React.useEffect(() => {
     updateChar();
-    const timerId = setInterval(updateChar, 60000);
+    const timerId = setInterval(updateChar, 600000);
     return () => {
       clearInterval(timerId);
     };
