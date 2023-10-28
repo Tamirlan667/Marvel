@@ -10,7 +10,7 @@ const useMarvelService = () => {
 
     return await res.json();
   };
-  const _baseOffset = 210;
+  const _baseOffset = 100;
 
   const getAllCharacters = async (offset = _baseOffset) => {
     const res = await getResource(
