@@ -34,6 +34,14 @@ const CharList = ({ onCharSelected }) => {
     setError(true);
     setLoading(false);
   };
+  const itemsRefs = React.useRef([]);
+  const focusOnItem = (id) => {
+    itemsRefs.current.forEach((item) =>
+      item.classList.remove("char__item_selected")
+    );
+    itemsRefs.current[id].classList.add("char__item_selected");
+    itemsRefs.current[id].focus();
+  };
   function renderItems(arr) {
     const items = arr.map((item, i) => {
       let imgStyle = { objectFit: "cover" };
@@ -48,7 +56,11 @@ const CharList = ({ onCharSelected }) => {
         <li
           className="char__item"
           key={item.id}
-          onClick={() => onCharSelected(item.id)}
+          ref={(el) => (itemsRefs.current[i] = el)}
+          onClick={() => {
+            onCharSelected(item.id);
+            focusOnItem(i);
+          }}
         >
           <img src={item.thumbnail} alt={item.name} style={imgStyle} />
           <div className="char__name">{item.name}</div>
