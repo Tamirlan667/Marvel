@@ -9,11 +9,12 @@ const CharList = ({ onCharSelected }) => {
   const [error, setError] = React.useState(false);
   const [offset, setOffset] = React.useState(210);
   const { getAllCharacters } = useMarvelService();
+  const [newItemLoading, setNewItemLoading] = React.useState(true);
   React.useEffect(() => {
     onCharList();
   }, []);
-  const onCharList = () => {
-    setLoading(true);
+  const onCharList = (offset) => {
+    setNewItemLoading(true);
     getAllCharacters(offset)
       .then((res) => {
         onChar(res);
@@ -22,10 +23,12 @@ const CharList = ({ onCharSelected }) => {
         onError();
       });
   };
-  const onChar = (charList) => {
+  const onChar = (newCharList) => {
+    setCharList((charList) => [...charList, ...newCharList]);
+    setOffset((offset) => offset + 9);
     setError(false);
-    setCharList(charList);
     setLoading(false);
+    setNewItemLoading((newItemLoading) => false);
   };
   const onError = () => {
     setError(true);
@@ -66,7 +69,11 @@ const CharList = ({ onCharSelected }) => {
       {errorMessage}
       {spinner}
       {content}
-      <button className="button button__main button__long">
+      <button
+        className="button button__main button__long"
+        onClick={() => onCharList(offset)}
+        disabled={newItemLoading}
+      >
         <div className="inner">load more</div>
       </button>
     </div>
